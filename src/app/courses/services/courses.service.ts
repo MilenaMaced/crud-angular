@@ -12,16 +12,21 @@ export class CoursesService {
   constructor(private httpClient: HttpClient) { }
 
   list() {
-    return this.httpClient.get<Course[]>(this.API).pipe(
-      first(),
-      tap(courses => console.log(courses))
-    );
+    return this.httpClient.get<Course[]>(this.API).pipe(first());
   }
   save(record: Partial<Course>) {
-    return this.httpClient.post<Course>(this.API, record).pipe(first());
+    return record.id ? this.update(record) : this.create(record);
   }
 
   loadById(id: string) {
     return this.httpClient.get<Course>(`${this.API}/${id}`);
+  }
+
+  private create(record: Partial<Course>) {
+    return this.httpClient.post<Course>(this.API, record).pipe(first());
+  }
+
+  private update(record: Partial<Course>) {
+    return this.httpClient.put<Course>(`${this.API}/${record.id}`, record).pipe(first());
   }
 }
