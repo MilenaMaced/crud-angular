@@ -4,7 +4,8 @@
   </mat-toolbar>
   <div class="mat-elevation-z8 column-flex">
 
-    <app-courses-list *ngIf="courses$ | async as courses; else loading" [courses]="courses"></app-courses-list>
+    <app-courses-list *ngIf="courses$ | async as courses; else loading" [courses]="courses"
+      (add)="onAdd()"></app-courses-list>
 
     <ng-template #loading>
       <div class="loading-spinner">
