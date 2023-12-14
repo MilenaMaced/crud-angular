@@ -3,6 +3,7 @@ import { NonNullableFormBuilder } from '@angular/forms';
 import { CoursesService } from '../../services/courses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course-form',
@@ -21,7 +22,10 @@ export class CourseFormComponent {
     private service: CoursesService,
     private _snackBar: MatSnackBar,
     private location: Location,
-  ) {}
+    private router: ActivatedRoute
+  ) {
+    
+  }
 
   onSubmit() {
     this.service.save(this.form.value).subscribe(
