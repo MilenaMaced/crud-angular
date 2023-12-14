@@ -13,13 +13,11 @@ export class CoursesService {
 
   list() {
     return this.httpClient.get<Course[]>(this.API).pipe(
-      first(), //fecha
-      //take(1), quando retorna 1 fecha
-      //delay(5000),
+      first(),
       tap(courses => console.log(courses))
     );
   }
-  save(record: Course) {
+  save(record: Partial<Course>) {
     return this.httpClient.post<Course>(this.API, record).pipe(first());
   }
 }
