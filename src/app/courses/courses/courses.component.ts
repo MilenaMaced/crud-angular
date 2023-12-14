@@ -14,13 +14,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CoursesComponent {
 
   courses$: Observable<Course[]>;
-  displayedColumns = ['name', 'category', 'actions'];
 
   constructor(
     private courseService: CoursesService,
     public dialog: MatDialog,
-    private router: Router,
-    private route: ActivatedRoute
+
   ) {
     this.courses$ = courseService.list().pipe(
       catchError(error => {
@@ -35,7 +33,5 @@ export class CoursesComponent {
     });
   }
 
-  onAdd() {
-    this.router.navigate(['new'], { relativeTo: this.route })
-  }
+
 }
