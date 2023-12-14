@@ -4,6 +4,7 @@ import { CoursesService } from '../../services/courses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Course } from '../../model/course';
 
 @Component({
   selector: 'app-course-form',
@@ -13,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class CourseFormComponent {
 
   form = this.formBuilder.group({
+    id: [''],
     name: [''],
     category: ['']
   });;
@@ -22,9 +24,11 @@ export class CourseFormComponent {
     private service: CoursesService,
     private _snackBar: MatSnackBar,
     private location: Location,
-    private router: ActivatedRoute
+    private route: ActivatedRoute
   ) {
-    
+    // Para editar popular os campos
+    const course: Course = this.route.snapshot.data['course'];
+    this.form.setValue({ id: course.id, name: course.name, category: course.category })
   }
 
   onSubmit() {
