@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { CoursesService } from '../../services/courses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
@@ -35,6 +35,7 @@ export class CourseFormComponent {
       category: [course.category, Validators.required],
       lessons: this.formBuilder.array(this.retrieveLessons(course))
     });
+    console.log(course)
   }
 
   private retrieveLessons(course: Course) {
@@ -55,6 +56,9 @@ export class CourseFormComponent {
     })
   }
 
+  getLessonsFormArray() {
+    return (<UntypedFormArray>this.form.get('lessons'))?.controls;
+  }
   onSubmit() {
     this.service.save(this.form.value).subscribe({
       next: () => this.onSucess(),
